@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "ZakFitBack",
+    name: "ZakFit",
     platforms: [
        .macOS(.v13)
     ],
@@ -15,24 +15,25 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent-mysql-driver.git", from: "4.4.0"),
         // 🔵 Non-blocking, event-driven networking for Swift. Used for custom executors
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.65.0"),
+        // JWT Auth
+        .package(url: "https://github.com/vapor/jwt.git", from: "4.0.0"),
+        
+        //SQlite en memoire pour les tests
+        .package(url: "https://github.com/vapor/fluent-sqlite-driver.git", from: "4.5.0"),
+        
     ],
     targets: [
         .executableTarget(
-            name: "ZakFitBack",
+            name: "ZakFit",
             dependencies: [
                 .product(name: "Fluent", package: "fluent"),
                 .product(name: "FluentMySQLDriver", package: "fluent-mysql-driver"),
                 .product(name: "Vapor", package: "vapor"),
                 .product(name: "NIOCore", package: "swift-nio"),
                 .product(name: "NIOPosix", package: "swift-nio"),
-            ],
-            swiftSettings: swiftSettings
-        ),
-        .testTarget(
-            name: "ZakFitBackTests",
-            dependencies: [
-                .target(name: "ZakFitBack"),
-                .product(name: "VaporTesting", package: "vapor"),
+                .product(name: "JWT", package: "jwt"),
+                .product(name: "FluentSQLiteDriver", package: "fluent-sqlite-driver")
+
             ],
             swiftSettings: swiftSettings
         )
