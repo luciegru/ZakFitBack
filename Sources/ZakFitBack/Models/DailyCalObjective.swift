@@ -36,7 +36,7 @@ final class DailyCalObjective: Model, @unchecked Sendable {
         
         return DailyCalObjectiveResponseDTO(
             id: self.id,
-            user: self.user.id,
+            user: self.$user.id,
             cal: self.cal,
             prot: self.prot ?? 0,
             carb: self.carb ?? 0,

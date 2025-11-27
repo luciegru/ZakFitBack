@@ -7,8 +7,9 @@
 
 import Foundation
 import Fluent
+import Vapor
 
-final class UserFoodPreference: Model, @unchecked Sendable {
+final class UserFoodPreference: Model, @unchecked Sendable, Content{
     static let schema = "UserFoodPreference"
     
     @ID(key: .id)
@@ -22,13 +23,18 @@ final class UserFoodPreference: Model, @unchecked Sendable {
         
     init(){}
     
+    init(userId: UUID, foodPreferenceId: UUID) {
+        self.$user.id = userId
+        self.$foodPreference.id = foodPreferenceId
+    }
+
+    
     func toDTO() -> UserFoodPreferenceResponseDTO {
-        
-        return UserFoodPreferenceResponseDTO(
-        id: self.id,
-        user: self.user.id,
-        foodPreference: self.foodPreference.id
+        UserFoodPreferenceResponseDTO(
+            id: self.id,
+            user: self.$user.id,
+            foodPreference: self.$foodPreference.id
         )
     }
-    
+
 }

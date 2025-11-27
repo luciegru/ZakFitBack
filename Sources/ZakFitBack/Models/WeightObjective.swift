@@ -34,7 +34,7 @@ final class WeightObjective: Model, @unchecked Sendable {
         
         return WeightObjectiveResponseDTO(
             id: self.id,
-            user: self.user.id,
+            user: self.$user.id,
             targetWeight: self.targetWeight,
             startDate: self.startDate,
             endDate: self.endDate,

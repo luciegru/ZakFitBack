@@ -5,8 +5,25 @@ import Vapor
 
 // configures your application
 public func configure(_ app: Application) async throws {
-    // uncomment to serve files from /Public folder
-    // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+
+    app.http.server.configuration.hostname = "127.0.0.1"
+    app.http.server.configuration.port = 8080
+
+    // Formatter for dates like "yyyy/MM/dd"
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy/MM/dd"
+    formatter.timeZone = TimeZone(secondsFromGMT: 0)
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .formatted(formatter)
+    
+    let encoder = JSONEncoder()
+    encoder.dateEncodingStrategy = .formatted(formatter)
+    
+    ContentConfiguration.global.use(decoder: decoder, for: .json)
+    ContentConfiguration.global.use(encoder: encoder, for: .json)
+
 
     app.databases.use(DatabaseConfigurationFactory.mysql(
         hostname: Environment.get("DATABASE_HOST") ?? "localhost",

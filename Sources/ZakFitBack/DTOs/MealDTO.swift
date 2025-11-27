@@ -16,6 +16,20 @@ struct MealDTO: Content {
     let totalProt: Int?
     let totalCarb: Int?
     let totalLip: Int?
+    
+    func toModel() -> Meal {
+        let model = Meal()
+        
+        model.id = UUID()
+        model.type = type ?? "snack"
+        model.date = date ?? Date.now
+        model.totalCal = totalCal ?? 0
+        model.totalProt = totalProt ?? 0
+        model.totalCarb = totalCarb ?? 0
+        model.totalLip = totalLip ?? 0
+        return model
+    }
+
 }
 
 

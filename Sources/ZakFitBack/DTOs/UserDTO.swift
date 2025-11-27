@@ -20,18 +20,42 @@ struct CreateUserDTO: Content {
     var weight: Double?
     var healthObjective: String?
     
+    func toModel() -> User {
+        let model = User()
+        
+        model.id = UUID()
+        model.name = name
+        model.firstName = firstName
+        model.email = email
+        model.password = password
+        
+        return model
+    }
+
+    
 }
 
 struct UserResponseDTO: Content {
-    var id: UUID?
+    var id: UUID
     var name: String
     var firstName: String
     var email: String
-    var password: String
     var genre: String?
     var inscriptionDate: Date?
     var picture: String?
     var birthDate: Date?
+    var height: Int?
+    var weight: Double?
+    var healthObjective: String?
+}
+
+struct UpdateUserDTO: Content {
+    var name: String?
+    var firstName: String?
+    var email: String?
+    var password: String?
+    var genre: String?
+    var picture: String?
     var height: Int?
     var weight: Double?
     var healthObjective: String?
