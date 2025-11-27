@@ -45,7 +45,7 @@ final class Meal: Model, @unchecked Sendable {
         return MealResponseDTO(
             
         id: self.id,
-        user: self.user.id,
+        user: self.$user.id,
         type: self.type,
         date: self.date,
         totalCal: self.totalCal,

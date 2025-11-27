@@ -9,7 +9,7 @@ import Foundation
 import Fluent
 
 final class User: Model, @unchecked Sendable {
-    static let schema = "User"
+    static let schema = "user"
     
     @ID(key: .id)
     var id: UUID?
@@ -73,18 +73,18 @@ final class User: Model, @unchecked Sendable {
     func toDTO() -> UserResponseDTO {
         
         return UserResponseDTO(
-        id: self.id,
+            
+        id: self.id ?? UUID(),
         name: self.name,
         firstName: self.firstName,
         email: self.email,
-        password: self.password,
-        genre: self.genre,
-        inscriptionDate: self.inscriptionDate,
-        picture: self.picture,
-        birthDate: self.birthDate,
-        height: self.height,
-        weight: self.weight,
-        healthObjective: self.healthObjective,
+        genre: self.$genre.value ?? "",
+        inscriptionDate: self.$inscriptionDate.value ?? Date(),
+        picture: self.$picture.value ?? "",
+        birthDate: self.$birthDate.value ?? Date(),
+        height: self.$height.value ?? 0,
+        weight: self.$weight.value ?? 0,
+        healthObjective: self.$healthObjective.value ?? ""
         )
     }
     

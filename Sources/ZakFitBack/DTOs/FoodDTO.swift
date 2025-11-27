@@ -17,6 +17,23 @@ struct FoodDTO: Content {
     let prot: Int?
     let unit: String?
     let unitWeightG: Double?
+    
+    func toModel() -> Food {
+        let model = Food()
+        
+        model.id = UUID()
+        model.$foodCategory.id = foodCategory ?? UUID()
+        model.name = name ?? ""
+        model.cal = cal ?? 0
+        model.carb = carb ?? 0
+        model.lip = lip ?? 0
+        model.prot = prot ?? 0
+        model.unit = unit ?? ""
+        model.unitWeightG = unitWeightG
+        
+        return model
+    }
+
 }
 
 

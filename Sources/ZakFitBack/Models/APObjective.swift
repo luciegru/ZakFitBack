@@ -28,13 +28,13 @@ final class APObjective: Model, @unchecked Sendable {
     var APNumber: Int?
     
     @Field(key: "startDate")
-    var startDate: Date
+    var startDate: Date?
     
     @Field(key: "endDate")
-    var endDate: Date
+    var endDate: Date?
     
-    @Field(key: "intervalDays")
-    var intervalDays: Int?
+    @Field(key: "interval")
+    var interval: Int?
     
 
     init(){}
@@ -43,13 +43,13 @@ final class APObjective: Model, @unchecked Sendable {
         
         return APObjectiveResponseDTO(
             id: self.id,
-            user: self.user.id,
+            user: self.$user.id,
             APTime: self.APTime,
             burnedCal: self.burnedCal,
             APNumber: self.APNumber,
-            startDate: self.startDate,
-            endDate: self.endDate,
-            intervalDays: self.intervalDays
+            startDate: self.startDate ?? Date(),
+            endDate: self.endDate ?? Date(),
+            interval: self.interval
 
         )
     }

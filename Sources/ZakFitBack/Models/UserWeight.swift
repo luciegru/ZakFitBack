@@ -30,7 +30,7 @@ final class UserWeight: Model, @unchecked Sendable {
         return UserWeightResponseDTO(
             
         id: self.id,
-        user: self.user.id,
+        user: self.$user.id,
         weight: self.weight,
         date: self.date
         )

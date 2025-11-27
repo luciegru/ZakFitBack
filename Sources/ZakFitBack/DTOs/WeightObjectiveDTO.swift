@@ -10,9 +10,22 @@ import Fluent
 
 struct WeightObjectiveDTO: Content {
     let user: UUID?
-    let targetWeight: Int?
-    let startDate: Date?
-    let endDate: Date?
+    var targetWeight: Int?
+    var startDate: Date?
+    var endDate: Date?
+    
+    func toModel() -> WeightObjective {
+        let model = WeightObjective()
+        
+        model.id = UUID()
+        model.$user.id = user ?? UUID()
+        model.targetWeight = targetWeight
+        model.startDate = startDate
+        model.endDate = endDate
+        
+        return model
+    }
+
 }
 
 

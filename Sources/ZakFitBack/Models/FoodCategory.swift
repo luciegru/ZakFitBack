@@ -7,9 +7,9 @@
 
 import Foundation
 import Fluent
+import Vapor
 
-
-final class FoodCategory: Model, @unchecked Sendable {
+final class FoodCategory: Model, @unchecked Sendable, Content {
     static let schema = "FoodCategory"
     
     @ID(key: .id)

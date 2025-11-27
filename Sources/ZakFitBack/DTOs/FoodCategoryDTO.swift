@@ -11,6 +11,14 @@ import Vapor
 struct CreateFoodCategoryDTO: Content {
     var name: String
     
+    func toModel() -> FoodCategory {
+        let model = FoodCategory()
+        
+        model.id = UUID()
+        model.name = self.name
+        return model
+    }
+
 }
 
 struct FoodCategoryResponseDTO: Content {

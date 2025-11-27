@@ -7,8 +7,9 @@
 
 import Foundation
 import Fluent
+import Vapor
 
-final class Food: Model, @unchecked Sendable {
+final class Food: Model, @unchecked Sendable, Content {
     static let schema = "Food"
     
     @ID(key: .id)
@@ -48,7 +49,7 @@ final class Food: Model, @unchecked Sendable {
         return FoodResponseDTO(
             
         id: self.id,
-        foodCategory: self.foodCategory.id,
+        foodCategory: self.$foodCategory.id,
         name: self.name,
         cal: self.cal,
         carb: self.carb,

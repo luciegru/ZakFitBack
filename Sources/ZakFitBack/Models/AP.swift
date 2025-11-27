@@ -7,9 +7,10 @@
 
 import Foundation
 import Fluent
+import Vapor
 
 
-final class AP: Model, @unchecked Sendable {
+final class AP: Model, @unchecked Sendable, Content {
     static let schema = "AP"
     
     @ID(key: .id)
