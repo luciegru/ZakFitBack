@@ -19,6 +19,7 @@ struct CreateUserDTO: Content {
     var height: Int?
     var weight: Double?
     var healthObjective: String?
+    var onboardingDone: Bool = false
     
     func toModel() -> User {
         let model = User()
@@ -47,6 +48,7 @@ struct UserResponseDTO: Content {
     var height: Int?
     var weight: Double?
     var healthObjective: String?
+    var onboardingDone: Bool
 }
 
 struct UpdateUserDTO: Content {
@@ -59,4 +61,5 @@ struct UpdateUserDTO: Content {
     var height: Int?
     var weight: Double?
     var healthObjective: String?
+    var onboardingDone: Bool?
 }

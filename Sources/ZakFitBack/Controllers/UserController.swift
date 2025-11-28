@@ -36,9 +36,13 @@ struct UserController: RouteCollection {
     @Sendable
     func getAllUser(req: Request) async throws -> [UserResponseDTO] {
         
+        print("je rentre")
+        
         let users = try await User.query(on: req.db)
             .all()
         
+        print("la")
+
         
         return users.map { $0.toDTO() }
     }
@@ -85,12 +89,13 @@ struct UserController: RouteCollection {
         let userData = try req.content.decode(LoginRequest.self)
         
         guard let user = try await User.query(on: req.db)
+            .filter(\.$email == userData.email)
             .first() else {
-            throw Abort(.unauthorized, reason: "Utilisateur inconnu")
+            throw Abort(.unauthorized, reason: "Email ou mot de passe incorrect")
         }
         
         guard try Bcrypt.verify(userData.password, created: user.password) else {
-            throw Abort(.unauthorized, reason: "Mot de passe incorrect")
+            throw Abort(.unauthorized, reason: "Email ou mot de passe incorrect")
         }
         
         let payload = UserPayload(id: user.id!)
@@ -99,7 +104,7 @@ struct UserController: RouteCollection {
         
         return LoginResponse(token: token, user: user.toDTO())
     }
-    
+
     
     @Sendable
     func updateUser(_ req: Request) async throws -> UserResponseDTO {
