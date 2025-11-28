@@ -6,9 +6,6 @@ import Vapor
 // configures your application
 public func configure(_ app: Application) async throws {
 
-    app.http.server.configuration.hostname = "127.0.0.1"
-    app.http.server.configuration.port = 8080
-
     // Formatter for dates like "yyyy/MM/dd"
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy/MM/dd"
@@ -26,14 +23,13 @@ public func configure(_ app: Application) async throws {
 
 
     app.databases.use(DatabaseConfigurationFactory.mysql(
-        hostname: Environment.get("DATABASE_HOST") ?? "localhost",
+        hostname: Environment.get("DATABASE_HOST") ?? "127.0.0.1",
         port: Environment.get("DATABASE_PORT").flatMap(Int.init(_:)) ?? 3306,
         username: Environment.get("DATABASE_USERNAME") ?? "root",
         password: Environment.get("DATABASE_PASSWORD") ?? "",
         database: Environment.get("DATABASE_NAME") ?? "ZakFit"
     ), as: .mysql)
 
-    app.migrations.add(CreateTodo())
 
     // register routes
     try routes(app)

@@ -68,6 +68,9 @@ final class User: Model, @unchecked Sendable {
     @Children(for: \.$user)
     var meals: [Meal]
     
+    @Field(key: "onboardingDone")
+    var onboardingDone: Bool
+    
     init(){}
     
     func toDTO() -> UserResponseDTO {
@@ -84,7 +87,8 @@ final class User: Model, @unchecked Sendable {
         birthDate: self.$birthDate.value ?? Date(),
         height: self.$height.value ?? 0,
         weight: self.$weight.value ?? 0,
-        healthObjective: self.$healthObjective.value ?? ""
+        healthObjective: self.$healthObjective.value ?? "",
+        onboardingDone: self.$onboardingDone.value ?? false
         )
     }
     
