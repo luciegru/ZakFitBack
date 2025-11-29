@@ -36,6 +36,15 @@ final class APObjective: Model, @unchecked Sendable {
     @Field(key: "interval")
     var interval: Int?
     
+    @Field(key: "step")
+    var step: Int
+    
+    @Field(key: "sport")
+    var sport: String?
+    
+    @Field(key: "timeToAdd")
+    var timeToAdd: Int?
+    
 
     init(){}
     
@@ -49,8 +58,10 @@ final class APObjective: Model, @unchecked Sendable {
             APNumber: self.APNumber,
             startDate: self.startDate ?? Date(),
             endDate: self.endDate ?? Date(),
-            interval: self.interval
-
+            interval: self.interval,
+            step: self.step,
+            sport: self.sport,
+            timeToAdd: self.timeToAdd
         )
     }
     

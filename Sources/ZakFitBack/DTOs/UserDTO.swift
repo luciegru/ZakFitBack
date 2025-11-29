@@ -19,7 +19,7 @@ struct CreateUserDTO: Content {
     var height: Int?
     var weight: Double?
     var healthObjective: String?
-    var onboardingDone: Bool = false
+    var onboardingDone: Bool
     
     func toModel() -> User {
         let model = User()

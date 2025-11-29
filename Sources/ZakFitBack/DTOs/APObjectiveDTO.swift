@@ -15,6 +15,9 @@ struct APObjectiveDTO: Content {
     let startDate: Date?
     let endDate: Date?
     let interval: Int?
+    let step: Int
+    let sport: String?
+    let timeToAdd: Int?
     
     func toModel(userId: UUID) -> APObjective {
         let model = APObjective()
@@ -27,6 +30,9 @@ struct APObjectiveDTO: Content {
         model.startDate = startDate
         model.endDate = endDate
         model.interval = interval
+        model.step = step
+        model.sport = sport
+        model.timeToAdd = timeToAdd
         
         return model
     }
@@ -43,4 +49,8 @@ struct APObjectiveResponseDTO: Content {
     let startDate: Date
     let endDate: Date
     let interval: Int?
+    let step: Int
+    let sport: String?
+    let timeToAdd: Int?
+    
 }
