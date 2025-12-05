@@ -29,6 +29,7 @@ struct CreateUserDTO: Content {
         model.firstName = firstName
         model.email = email
         model.password = password
+        model.onboardingDone = onboardingDone
         
         return model
     }
