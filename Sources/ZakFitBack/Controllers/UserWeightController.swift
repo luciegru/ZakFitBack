@@ -18,6 +18,7 @@ struct UserWeightController: RouteCollection {
         protected.get(use: getAlluserWeight)
         protected.post(use: createUserWeight)
         protected.get("user", use: getMyUserWeight)
+        protected.post("special", use: createUserWeightWithCustomDate)
 
         
         protected.group(":id") { userWeight in
@@ -26,6 +27,34 @@ struct UserWeightController: RouteCollection {
         }
         
     }
+    
+    @Sendable
+    func createUserWeightWithCustomDate(_ req: Request) async throws -> UserWeightResponseDTO {
+        let payload = try req.auth.require(UserPayload.self)
+        
+        struct SpecialWeightDTO: Content {
+            let weight: Double
+            let date: String
+        }
+        
+        let data = try req.content.decode(SpecialWeightDTO.self)
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        guard let parsedDate = formatter.date(from: data.date) else {
+            throw Abort(.badRequest, reason: "Invalid date format. Use yyyy-MM-dd")
+        }
+        
+        let newWeight = UserWeight()
+        newWeight.$user.id = payload.id
+        newWeight.weight = data.weight
+        newWeight.date = parsedDate  // ✅ Date custom
+        
+        try await newWeight.save(on: req.db)
+        
+        return newWeight.toDTO()
+    }
+
     
     @Sendable
     func getAlluserWeight(_ req: Request) async throws -> [UserWeightResponseDTO] {

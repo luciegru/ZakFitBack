@@ -45,6 +45,13 @@ struct WeightObjectiveController: RouteCollection {
         
         newWeightObj.$user.id = payload.id
         
+        if let oldWeightObj = try await WeightObjective.query(on: req.db)
+            .filter(\.$user.$id == payload.id)
+            .first() {
+            try await oldWeightObj.delete(on: req.db)
+        }
+
+        
                 
         try await newWeightObj.save(on: req.db)
         

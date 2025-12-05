@@ -152,6 +152,10 @@ struct UserController: RouteCollection {
             user.healthObjective = newHealthObjective
         }
         
+        if let newOnboardinDone = updatedUser.onboardingDone {
+            user.onboardingDone = newOnboardinDone
+        }
+        
         
         try await user.save(on: req.db)
         

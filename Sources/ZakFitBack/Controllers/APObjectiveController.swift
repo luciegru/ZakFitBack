@@ -43,6 +43,12 @@ struct APObjectiveController: RouteCollection {
         
         let dto = try req.content.decode(APObjectiveDTO.self)
         
+        if let oldAPObj = try await APObjective.query(on: req.db)
+            .filter(\.$user.$id == payload.id)
+            .first() {
+            try await oldAPObj.delete(on: req.db)
+        }
+
         let newAPObj = dto.toModel(userId: payload.id)
         
         try await newAPObj.save(on: req.db)
